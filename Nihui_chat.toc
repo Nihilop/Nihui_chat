@@ -1,18 +1,15 @@
-## Interface: 110002
+## Interface: 110205
+## Author: Nihui (based on ls_Glass by lightspark)
+## Version: 2.0.0
 ## Title: Nihui |cff1a9fc0Chat|r
-## Notes: Clean chat frames with smooth fade in/out animations
-## Author: Nihui
-## Version: 1.0.0
+## Notes: Clean chat frames with ls_Glass sliding message system
+## IconTexture: Interface\AddOns\Nihui_chat\assets\logo-64
 ## SavedVariables: NihuiChatDB
+## LoadSavedVariablesFirst: 1
+## OptionalDeps: ElvUI
 
-# Core files
-core\config.lua
-core\init.lua
+embeds\_embeds.xml
+locales\_locales.xml
 
-# Module files
-modules\animations_lsglass.lua
-modules\messageline.lua
-modules\messagehandler.lua
-modules\styling.lua
-modules\frames.lua
-modules\position.lua
+core\_core.xml
+init.lua
