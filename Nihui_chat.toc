@@ -1,0 +1,18 @@
+## Interface: 110002
+## Title: Nihui |cff1a9fc0Chat|r
+## Notes: Clean chat frames with smooth fade in/out animations
+## Author: Nihui
+## Version: 1.0.0
+## SavedVariables: NihuiChatDB
+
+# Core files
+core\config.lua
+core\init.lua
+
+# Module files
+modules\animations_lsglass.lua
+modules\messageline.lua
+modules\messagehandler.lua
+modules\styling.lua
+modules\frames.lua
+modules\position.lua
