@@ -1,6 +1,6 @@
 ## Interface: 110205
 ## Author: Nihui (based on ls_Glass by lightspark)
-## Version: 2.0.0
+## Version: 1.0.0
 ## Title: Nihui |cff1a9fc0Chat|r
 ## Notes: Clean chat frames with ls_Glass sliding message system
 ## IconTexture: Interface\AddOns\Nihui_chat\assets\logo-64
