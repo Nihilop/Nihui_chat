@@ -94,14 +94,14 @@ local function createMessageLine(pool, parent, id)
 
 	counters[pool] = counters[pool] + 1
 
-	local frame = Mixin(CreateFrame("Frame", "$parentMessageLine" .. counters[pool], parent, "LSGlassHyperlinkPropagator"), message_line_proto)
+	local frame = Mixin(CreateFrame("Frame", "$parentMessageLine" .. counters[pool], parent, "NihuiChatHyperlinkPropagator"), message_line_proto)
 	frame:SetSize(width, config.font.size + config.y_padding * 2)
 	frame:SetID(0)
 	frame:Hide()
 
 	E:CreateGradientBackground(frame, width, config.alpha)
 
-	frame.Text = frame:CreateFontString(nil, "ARTWORK", "LSGlassMessageFont" .. id)
+	frame.Text = frame:CreateFontString(nil, "ARTWORK", "NihuiChatMessageFont" .. id)
 	frame.Text:SetPoint("TOPLEFT", config.x_padding, -config.y_padding)
 	frame.Text:SetWidth(width - config.x_padding * 2)
 	frame.Text:SetIndentedWordWrap(true)

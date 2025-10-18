@@ -7,9 +7,9 @@ local hooksecurefunc = _G.hooksecurefunc
 
 -- Mine
 function E:HandleDock(frame)
-	frame:SetHeight(36)
-	frame.scrollFrame:SetHeight(36)
-	frame.scrollFrame.child:SetHeight(36)
+	frame:SetHeight(26)
+	frame.scrollFrame:SetHeight(26)
+	frame.scrollFrame.child:SetHeight(26)
 
 	frame.scrollFrame:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 0, 0)
 	hooksecurefunc(frame.scrollFrame, "SetPoint", function(self, p, anchor, rP, x, _, shouldIgnore)

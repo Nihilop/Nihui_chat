@@ -8,10 +8,10 @@ local unpack = _G.unpack
 
 -- Mine
 local ICONS = {
-	{0 / 128, 52 / 128, 0 / 128, 52 / 128}, -- 1, "to bottom"
-	{52 / 128, 104 / 128, 0 / 128, 52 / 128}, -- 2, "new"
-	{0 / 128, 52 / 128, 52 / 128, 104 / 128}, -- 3, "down"
-	{52 / 128, 104 / 128, 52 / 128, 104 / 128}, -- 4, "up"
+	{atlas = "common-icon-exit", rotation = 0}, -- 1, "to bottom"
+	{atlas = "common-icon-exit", rotation = 0}, -- 2, "new" (same as to bottom for now)
+	{atlas = "common-icon-backarrow", rotation = math.rad(-90)}, -- 3, "down" (rotate down)
+	{atlas = "common-icon-backarrow", rotation = math.rad(90)}, -- 4, "up" (rotate up)
 }
 
 local buttons = {}
@@ -21,15 +21,20 @@ local button_proto = {}
 function button_proto:SetState(state, isInstant)
 	if state ~= self.state then
 		self.state = state
+		local iconData = ICONS[state]
 
 		if isInstant then
-			self.NormalTexture:SetTexCoord(unpack(ICONS[state]))
-			self.PushedTexture:SetTexCoord(unpack(ICONS[state]))
+			self.NormalTexture:SetAtlas(iconData.atlas, true)
+			self.NormalTexture:SetRotation(iconData.rotation)
+			self.PushedTexture:SetAtlas(iconData.atlas, true)
+			self.PushedTexture:SetRotation(iconData.rotation)
 		else
 			E:StopFading(self.NormalTexture, 1)
 			E:FadeOut(self.NormalTexture, 0, 0.1, function()
-				self.NormalTexture:SetTexCoord(unpack(ICONS[state]))
-				self.PushedTexture:SetTexCoord(unpack(ICONS[state]))
+				self.NormalTexture:SetAtlas(iconData.atlas, true)
+				self.NormalTexture:SetRotation(iconData.rotation)
+				self.PushedTexture:SetAtlas(iconData.atlas, true)
+				self.PushedTexture:SetRotation(iconData.rotation)
 
 				E:FadeIn(self.NormalTexture, 0.1)
 			end)
@@ -49,33 +54,31 @@ local function setUpBaseButton(button, state)
 	button:SetHighlightTexture(0)
 
 	local normalTexture = button:GetNormalTexture()
-	normalTexture:SetTexture("Interface\\AddOns\\ls_Glass\\assets\\scroll-buttons")
 	normalTexture:ClearAllPoints()
-	normalTexture:SetPoint("TOPLEFT", 3, -3)
-	normalTexture:SetPoint("BOTTOMRIGHT", -3, 3)
+	normalTexture:SetPoint("TOPLEFT", 2, -2)
+	normalTexture:SetPoint("BOTTOMRIGHT", -2, 2)
 	normalTexture:SetAlpha(0.8)
 	normalTexture:SetVertexColor(C.db.global.colors.lanzones:GetRGB())
 	button.NormalTexture = normalTexture
 
 	local pushedTexture = button:GetPushedTexture()
-	pushedTexture:SetTexture("Interface\\AddOns\\ls_Glass\\assets\\scroll-buttons")
 	pushedTexture:ClearAllPoints()
-	pushedTexture:SetPoint("TOPLEFT", 4, -4)
-	pushedTexture:SetPoint("BOTTOMRIGHT", -2, 2)
+	pushedTexture:SetPoint("TOPLEFT", 3, -3)
+	pushedTexture:SetPoint("BOTTOMRIGHT", -1, 1)
 	pushedTexture:SetAlpha(0.8)
 	pushedTexture:SetVertexColor(C.db.global.colors.lanzones:GetRGB())
 	button.PushedTexture = pushedTexture
 
 	local highlightLeft = button:CreateTexture(nil, "HIGHLIGHT")
 	highlightLeft:SetPoint("TOPLEFT", button, "TOPLEFT", 0, -2)
-	highlightLeft:SetTexture("Interface\\AddOns\\ls_Glass\\assets\\border-highlight")
+	highlightLeft:SetTexture("Interface\\AddOns\\Nihui_chat\\assets\\border-highlight")
 	highlightLeft:SetVertexColor(DEFAULT_TAB_SELECTED_COLOR_TABLE.r, DEFAULT_TAB_SELECTED_COLOR_TABLE.g, DEFAULT_TAB_SELECTED_COLOR_TABLE.b)
 	highlightLeft:SetTexCoord(0, 1, 0.5, 1)
 	highlightLeft:SetSize(8, 8)
 
 	local highlightRight = button:CreateTexture(nil, "HIGHLIGHT")
 	highlightRight:SetPoint("TOPRIGHT", button, "TOPRIGHT", 0, -2)
-	highlightRight:SetTexture("Interface\\AddOns\\ls_Glass\\assets\\border-highlight")
+	highlightRight:SetTexture("Interface\\AddOns\\Nihui_chat\\assets\\border-highlight")
 	highlightRight:SetVertexColor(DEFAULT_TAB_SELECTED_COLOR_TABLE.r, DEFAULT_TAB_SELECTED_COLOR_TABLE.g, DEFAULT_TAB_SELECTED_COLOR_TABLE.b)
 	highlightRight:SetTexCoord(1, 0, 0.5, 1)
 	highlightRight:SetSize(8, 8)
@@ -83,7 +86,7 @@ local function setUpBaseButton(button, state)
 	local highlightMiddle = button:CreateTexture(nil, "HIGHLIGHT")
 	highlightMiddle:SetPoint("TOPLEFT", highlightLeft, "TOPRIGHT", 0, 0)
 	highlightMiddle:SetPoint("TOPRIGHT", highlightRight, "TOPLEFT", 0, 0)
-	highlightMiddle:SetTexture("Interface\\AddOns\\ls_Glass\\assets\\border-highlight")
+	highlightMiddle:SetTexture("Interface\\AddOns\\Nihui_chat\\assets\\border-highlight")
 	highlightMiddle:SetVertexColor(DEFAULT_TAB_SELECTED_COLOR_TABLE.r, DEFAULT_TAB_SELECTED_COLOR_TABLE.g, DEFAULT_TAB_SELECTED_COLOR_TABLE.b)
 	highlightMiddle:SetTexCoord(0, 1, 0, 0.5)
 	highlightMiddle:SetSize(8, 8)

@@ -46,12 +46,12 @@ function E:HandleEditBox(frame)
 		handledEditBoxes[frame] = true
 	end
 
-	-- Always recreate backdrop to apply new style
+	-- Always recreate backdrop to apply new style with glass effect
 	if frame.Backdrop then
 		frame.Backdrop:Hide()
 		frame.Backdrop = nil
 	end
-	frame.Backdrop = E:CreateCastbarBackdrop(frame, C.db.profile.edit.alpha)
+	frame.Backdrop = E:CreateGlassBackdrop(frame, C.db.profile.edit.alpha, true)
 
 	for _, texture in next, EDIT_BOX_TEXTURES do
 		_G[frame:GetName() .. texture]:SetTexture(0)
@@ -59,7 +59,7 @@ function E:HandleEditBox(frame)
 
 	frame:SetMultiLine(C.db.profile.edit.multiline)
 	frame:SetAltArrowKeyMode(C.db.profile.edit.alt)
-	frame:SetHeight(48)
+	frame:SetHeight(38)
 	frame:ClearAllPoints()
 
 	if C.db.profile.edit.position == "top" then
@@ -70,11 +70,11 @@ function E:HandleEditBox(frame)
 		frame:SetPoint("BOTTOMRIGHT", frame.chatFrame, "BOTTOMRIGHT", 0, -C.db.profile.edit.offset)
 	end
 
-	frame:SetFontObject("LSGlassEditBoxFont")
-	frame.header:SetFontObject("LSGlassEditBoxFont")
-	frame.headerSuffix:SetFontObject("LSGlassEditBoxFont")
-	frame.NewcomerHint:SetFontObject("LSGlassEditBoxFont")
-	frame.prompt:SetFontObject("LSGlassEditBoxFont")
+	frame:SetFontObject("NihuiChatEditBoxFont")
+	frame.header:SetFontObject("NihuiChatEditBoxFont")
+	frame.headerSuffix:SetFontObject("NihuiChatEditBoxFont")
+	frame.NewcomerHint:SetFontObject("NihuiChatEditBoxFont")
+	frame.prompt:SetFontObject("NihuiChatEditBoxFont")
 end
 
 function E:UpdateEditBoxPosition()
@@ -99,7 +99,7 @@ function E:UpdateEditBoxMultiLine()
 
 	for editBox in next, handledEditBoxes do
 		editBox:SetMultiLine(isMultiline)
-		editBox:SetHeight(48)
+		editBox:SetHeight(38)
 	end
 end
 

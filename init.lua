@@ -134,7 +134,7 @@ E:RegisterEvent("ADDON_LOADED", function(arg1)
 		end)
 
 		-- ? consider moving it elsewhere
-		local updater = CreateFrame("Frame", "LSGlassUpdater", UIParent)
+		local updater = CreateFrame("Frame", "NihuiChatUpdater", UIParent)
 		updater:SetScript("OnUpdate", function (self, elapsed)
 			self.elapsed = (self.elapsed or 0) + elapsed
 			if self.elapsed >= 0.01 then
@@ -200,7 +200,7 @@ E:RegisterEvent("ADDON_LOADED", function(arg1)
 
 		AddonCompartmentFrame:RegisterAddon({
 			text = L["LS_GLASS"],
-			icon = "Interface\\AddOns\\ls_Glass\\assets\\logo-32",
+			icon = "Interface\\AddOns\\Nihui_chat\\assets\\logo-32",
 			func = function()
 				if not InCombatLockdown() then
 					if not C.options then

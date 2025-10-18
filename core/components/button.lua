@@ -87,9 +87,9 @@ end
 
 local handledButtons = {}
 
-local function handleButton(frame, ...)
+local function handleButton(frame, atlas)
 	if not handledButtons[frame] then
-		frame.Backdrop = E:CreateBackdrop(frame, C.db.profile.dock.alpha)
+		frame.Backdrop = E:CreateGlassBackdrop(frame, C.db.profile.dock.alpha, false)
 		frame.HighlightLeft = frame:CreateTexture(nil, "HIGHLIGHT")
 		frame.HighlightMiddle = frame:CreateTexture(nil, "HIGHLIGHT")
 		frame.HighlightRight = frame:CreateTexture(nil, "HIGHLIGHT")
@@ -104,19 +104,17 @@ local function handleButton(frame, ...)
 	frame:SetHighlightTexture(0)
 
 	local normalTexture = frame:GetNormalTexture()
-	normalTexture:SetTexture("Interface\\AddOns\\ls_Glass\\assets\\icons")
-	normalTexture:SetTexCoord(...)
+	normalTexture:SetAtlas(atlas, true)
 	normalTexture:ClearAllPoints()
-	normalTexture:SetPoint("TOPLEFT", 1, -1)
-	normalTexture:SetPoint("BOTTOMRIGHT", frame, "TOPLEFT", 19, -19)
+	normalTexture:SetPoint("TOPLEFT", 2, -2)
+	normalTexture:SetPoint("BOTTOMRIGHT", -2, 2)
 	normalTexture:SetVertexColor(C.db.global.colors.lanzones:GetRGB())
 
 	local pushedTexture = frame:GetPushedTexture()
-	pushedTexture:SetTexture("Interface\\AddOns\\ls_Glass\\assets\\icons")
-	pushedTexture:SetTexCoord(...)
+	pushedTexture:SetAtlas(atlas, true)
 	pushedTexture:ClearAllPoints()
-	pushedTexture:SetPoint("TOPLEFT", 2, -2)
-	pushedTexture:SetPoint("BOTTOMRIGHT", frame, "TOPLEFT", 20, -20)
+	pushedTexture:SetPoint("TOPLEFT", 3, -3)
+	pushedTexture:SetPoint("BOTTOMRIGHT", -1, 1)
 	pushedTexture:SetVertexColor(C.db.global.colors.lanzones:GetRGB())
 
 	-- PropertyButtonMixin resets this stuff, so nil it
@@ -125,14 +123,14 @@ local function handleButton(frame, ...)
 
 	local highlightLeft = frame.HighlightLeft
 	highlightLeft:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, -2)
-	highlightLeft:SetTexture("Interface\\AddOns\\ls_Glass\\assets\\border-highlight")
+	highlightLeft:SetTexture("Interface\\AddOns\\Nihui_chat\\assets\\border-highlight")
 	highlightLeft:SetVertexColor(DEFAULT_TAB_SELECTED_COLOR_TABLE.r, DEFAULT_TAB_SELECTED_COLOR_TABLE.g, DEFAULT_TAB_SELECTED_COLOR_TABLE.b)
 	highlightLeft:SetTexCoord(0, 1, 0.5, 1)
 	highlightLeft:SetSize(8, 8)
 
 	local highlightRight = frame.HighlightRight
 	highlightRight:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, -2)
-	highlightRight:SetTexture("Interface\\AddOns\\ls_Glass\\assets\\border-highlight")
+	highlightRight:SetTexture("Interface\\AddOns\\Nihui_chat\\assets\\border-highlight")
 	highlightRight:SetVertexColor(DEFAULT_TAB_SELECTED_COLOR_TABLE.r, DEFAULT_TAB_SELECTED_COLOR_TABLE.g, DEFAULT_TAB_SELECTED_COLOR_TABLE.b)
 	highlightRight:SetTexCoord(1, 0, 0.5, 1)
 	highlightRight:SetSize(8, 8)
@@ -140,21 +138,21 @@ local function handleButton(frame, ...)
 	local highlightMiddle = frame.HighlightMiddle
 	highlightMiddle:SetPoint("TOPLEFT", highlightLeft, "TOPRIGHT", 0, 0)
 	highlightMiddle:SetPoint("TOPRIGHT", highlightRight, "TOPLEFT", 0, 0)
-	highlightMiddle:SetTexture("Interface\\AddOns\\ls_Glass\\assets\\border-highlight")
+	highlightMiddle:SetTexture("Interface\\AddOns\\Nihui_chat\\assets\\border-highlight")
 	highlightMiddle:SetVertexColor(DEFAULT_TAB_SELECTED_COLOR_TABLE.r, DEFAULT_TAB_SELECTED_COLOR_TABLE.g, DEFAULT_TAB_SELECTED_COLOR_TABLE.b)
 	highlightMiddle:SetTexCoord(0, 1, 0, 0.5)
 	highlightMiddle:SetSize(8, 8)
 end
 
 function E:HandleMinimizeButton(frame, tab)
-	handleButton(frame, 0.25, 0.5, 0, 0.5)
+	handleButton(frame, "GarrMission_MissionIcon-Recruit") -- Temporary, will need proper icon
 
 	frame:ClearAllPoints()
 	frame:SetPoint("BOTTOMLEFT", tab, "BOTTOMRIGHT", 1, 0)
 end
 
 function E:HandleMaximizeButton(frame)
-	handleButton(frame, 0.5, 0.75, 0, 0.5)
+	handleButton(frame, "GarrMission_MissionIcon-Recruit") -- Temporary, will need proper icon
 
 	frame:ClearAllPoints()
 	frame:SetPoint("BOTTOMLEFT", frame:GetParent(), "BOTTOMRIGHT", 1, 0)
@@ -167,16 +165,69 @@ function E:HandleQuickJoinToastButton(frame)
 		end
 	end
 
-	handleButton(frame, 0.5, 0.75, 0.5, 1)
+	-- Don't use handleButton, we need custom icon positioning for this button
+	if not handledButtons[frame] then
+		frame.Backdrop = E:CreateGlassBackdrop(frame, C.db.profile.dock.alpha, false)
+		frame.HighlightLeft = frame:CreateTexture(nil, "HIGHLIGHT")
+		frame.HighlightMiddle = frame:CreateTexture(nil, "HIGHLIGHT")
+		frame.HighlightRight = frame:CreateTexture(nil, "HIGHLIGHT")
 
+		handledButtons[frame] = true
+	end
+
+	frame:SetFlattensRenderLayers(true)
 	frame:SetParent(ChatFrame1.buttonFrame)
 	frame:SetSize(20, 30)
 	frame:ClearAllPoints()
 	frame:SetPoint("TOPRIGHT", ChatFrame1.buttonFrame, "TOPRIGHT", 2, 0)
+	frame:SetNormalTexture(0)
+	frame:SetPushedTexture(0)
+	frame:SetHighlightTexture(0)
+
+	-- Icon limited to top 20x20 area
+	local normalTexture = frame:GetNormalTexture()
+	normalTexture:SetAtlas("GarrMission_MissionIcon-Recruit", true)
+	normalTexture:ClearAllPoints()
+	normalTexture:SetPoint("TOPLEFT", 2, -2)
+	normalTexture:SetPoint("BOTTOMRIGHT", -2, 8)  -- Stop 8px from bottom for friend count
+	normalTexture:SetVertexColor(C.db.global.colors.lanzones:GetRGB())
+
+	local pushedTexture = frame:GetPushedTexture()
+	pushedTexture:SetAtlas("GarrMission_MissionIcon-Recruit", true)
+	pushedTexture:ClearAllPoints()
+	pushedTexture:SetPoint("TOPLEFT", 3, -3)
+	pushedTexture:SetPoint("BOTTOMRIGHT", -1, 9)  -- Stop 9px from bottom for friend count
+	pushedTexture:SetVertexColor(C.db.global.colors.lanzones:GetRGB())
+
+	-- PropertyButtonMixin resets this stuff, so nil it
+	frame:ClearHighlightTexture()
+	frame.highlightAtlas = nil
+
+	local highlightLeft = frame.HighlightLeft
+	highlightLeft:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, -2)
+	highlightLeft:SetTexture("Interface\\AddOns\\Nihui_chat\\assets\\border-highlight")
+	highlightLeft:SetVertexColor(DEFAULT_TAB_SELECTED_COLOR_TABLE.r, DEFAULT_TAB_SELECTED_COLOR_TABLE.g, DEFAULT_TAB_SELECTED_COLOR_TABLE.b)
+	highlightLeft:SetTexCoord(0, 1, 0.5, 1)
+	highlightLeft:SetSize(8, 8)
+
+	local highlightRight = frame.HighlightRight
+	highlightRight:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, -2)
+	highlightRight:SetTexture("Interface\\AddOns\\Nihui_chat\\assets\\border-highlight")
+	highlightRight:SetVertexColor(DEFAULT_TAB_SELECTED_COLOR_TABLE.r, DEFAULT_TAB_SELECTED_COLOR_TABLE.g, DEFAULT_TAB_SELECTED_COLOR_TABLE.b)
+	highlightRight:SetTexCoord(1, 0, 0.5, 1)
+	highlightRight:SetSize(8, 8)
+
+	local highlightMiddle = frame.HighlightMiddle
+	highlightMiddle:SetPoint("TOPLEFT", highlightLeft, "TOPRIGHT", 0, 0)
+	highlightMiddle:SetPoint("TOPRIGHT", highlightRight, "TOPLEFT", 0, 0)
+	highlightMiddle:SetTexture("Interface\\AddOns\\Nihui_chat\\assets\\border-highlight")
+	highlightMiddle:SetVertexColor(DEFAULT_TAB_SELECTED_COLOR_TABLE.r, DEFAULT_TAB_SELECTED_COLOR_TABLE.g, DEFAULT_TAB_SELECTED_COLOR_TABLE.b)
+	highlightMiddle:SetTexCoord(0, 1, 0, 0.5)
+	highlightMiddle:SetSize(8, 8)
 
 	frame.FriendCount:ClearAllPoints()
-	frame.FriendCount:SetPoint("BOTTOMLEFT", -1.5, 4)
-	frame.FriendCount:SetPoint("BOTTOMRIGHT", 2.5, 4)
+	frame.FriendCount:SetPoint("BOTTOMLEFT", -1.5, 2)
+	frame.FriendCount:SetPoint("BOTTOMRIGHT", 2.5, 2)
 	frame.FriendCount:SetTextColor(C.db.global.colors.lanzones:GetRGB())
 
 	hooksecurefunc(frame, "UpdateDisplayedFriendCount", function(self)
@@ -227,10 +278,10 @@ function E:HandleQuickJoinToastButton(frame)
 end
 
 function E:HandleChannelButton(frame)
-	handleButton(frame, 0, 0.25, 0.5, 1)
+	handleButton(frame, "GarrMission_MissionIcon-Engineering")
 
 	frame:ClearAllPoints()
-	frame:SetPoint("TOPRIGHT", QuickJoinToastButton, "BOTTOMRIGHT", 0, -1)
+	frame:SetPoint("TOPRIGHT", QuickJoinToastButton, "BOTTOMRIGHT", 0, -7)
 
 	frame.Icon:SetTexture(0)
 
@@ -241,14 +292,14 @@ function E:HandleChannelButton(frame)
 end
 
 function E:HandleMenuButton(frame)
-	handleButton(frame, 0.75, 1, 0, 0.5)
+	handleButton(frame, "GarrMission_MissionIcon-Logistics")
 
 	frame:ClearAllPoints()
-	frame:SetPoint("TOPRIGHT", ChatFrameChannelButton, "BOTTOMRIGHT", 0, -1)
+	frame:SetPoint("TOPRIGHT", ChatFrameChannelButton, "BOTTOMRIGHT", 0, -7)
 end
 
 function E:HandleOverflowButton(frame)
-	handleButton(frame, 0, 0.25, 0, 0.5)
+	handleButton(frame, "GarrMission_MissionIcon-Logistics") -- Using same as menu for now
 end
 
 function E:HandleTTSButton(frame)
@@ -260,7 +311,7 @@ function E:HandleTTSButton(frame)
 		end
 	end
 
-	handleButton(frame, 0.25, 0.5, 0.5, 1)
+	handleButton(frame, "GarrMission_MissionIcon-Recruit") -- Using recruit icon for TTS
 
 	frame.Icon:SetTexture(0)
 	frame.Icon:Hide()
@@ -273,7 +324,7 @@ function E:HandleTTSButton(frame)
 	parent:SetSize(20, 20)
 	parent:SetParent(ChatFrame1.buttonFrame)
 	parent:ClearAllPoints()
-	parent:SetPoint("TOPRIGHT", ChatFrameMenuButton, "BOTTOMRIGHT", 0, -1)
+	parent:SetPoint("TOPRIGHT", ChatFrameMenuButton, "BOTTOMRIGHT", 0, -7)
 end
 
 function E:UpdateButtonAlpha()

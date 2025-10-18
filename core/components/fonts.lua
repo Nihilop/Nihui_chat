@@ -9,7 +9,7 @@ local LSM = LibStub("LibSharedMedia-3.0")
 
 function E:CreateFonts()
 	for i = 1, 10 do
-		local messageFont = CreateFont("LSGlassMessageFont" .. i)
+		local messageFont = CreateFont("NihuiChatMessageFont" .. i)
 		messageFont:CopyFontObject(ChatFontNormal)
 		messageFont:SetFont(
 			LSM:Fetch("font", C.db.profile.font),
@@ -39,7 +39,7 @@ function E:CreateFonts()
 		messageFont:SetJustifyV("MIDDLE")
 	end
 
-	local editBoxFont = CreateFont("LSGlassEditBoxFont")
+	local editBoxFont = CreateFont("NihuiChatEditBoxFont")
 	editBoxFont:CopyFontObject(GameFontNormalSmall)
 	editBoxFont:SetFont(
 		LSM:Fetch("font", C.db.profile.font),
@@ -69,7 +69,7 @@ function E:CreateFonts()
 end
 
 function E:UpdateMessageFont(id)
-	local messageFont = _G["LSGlassMessageFont" .. id]
+	local messageFont = _G["NihuiChatMessageFont" .. id]
 	messageFont:SetFont(
 		LSM:Fetch("font", C.db.profile.font),
 		C.db.profile.chat[id].font.size,
@@ -103,15 +103,15 @@ function E:UpdateMessageFonts()
 end
 
 function E:UpdateEditBoxFont()
-	LSGlassEditBoxFont:SetFont(
+	NihuiChatEditBoxFont:SetFont(
 		LSM:Fetch("font", C.db.profile.font),
 		C.db.profile.edit.font.size,
 		C.db.profile.edit.font.outline and "OUTLINE" or ""
 	)
 
-	local font = LSGlassEditBoxFont:GetFont()
+	local font = NihuiChatEditBoxFont:GetFont()
 	if not font then
-		LSGlassEditBoxFont:SetFont(
+		NihuiChatEditBoxFont:SetFont(
 			LSM:Fetch("font"),
 			C.db.profile.edit.font.size,
 			C.db.profile.edit.font.outline and "OUTLINE" or ""
@@ -119,11 +119,11 @@ function E:UpdateEditBoxFont()
 	end
 
 	if C.db.profile.edit.font.shadow then
-		LSGlassEditBoxFont:SetShadowOffset(1, -1)
+		NihuiChatEditBoxFont:SetShadowOffset(1, -1)
 	else
-		LSGlassEditBoxFont:SetShadowOffset(0, 0)
+		NihuiChatEditBoxFont:SetShadowOffset(0, 0)
 	end
 
-	LSGlassEditBoxFont:SetJustifyH("LEFT")
-	LSGlassEditBoxFont:SetJustifyV("MIDDLE")
+	NihuiChatEditBoxFont:SetJustifyH("LEFT")
+	NihuiChatEditBoxFont:SetJustifyV("MIDDLE")
 end

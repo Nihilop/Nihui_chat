@@ -38,7 +38,7 @@ function E:CreateBackdrop(parent, alpha,  xOffset, yOffset)
 	backdrop:SetPoint("BOTTOMRIGHT", -(xOffset or 0), yOffset or 0)
 	backdrop:SetBackdrop({
 		bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
-		edgeFile = "Interface\\AddOns\\ls_Glass\\assets\\border",
+		edgeFile = "Interface\\AddOns\\Nihui_chat\\assets\\border",
 		tile = true,
 		tileEdge = true,
 		tileSize = 8,
@@ -99,6 +99,45 @@ function E:CreateCastbarBackdrop(parent, alpha)
 
 	backdrop:SetBackdropColor(0.2, 0.2, 0.2, alpha)
 	backdrop:SetBackdropBorderColor(0.5, 0.5, 0.5, 1) -- Nihui_cb gray border
+
+	t_insert(backdrops, backdrop)
+
+	return backdrop
+end
+
+-- Create backdrop with Nihui_uf style (border + glass effect)
+function E:CreateGlassBackdrop(parent, alpha, addGlass)
+	local backdrop = Mixin(CreateFrame("Frame", nil, parent, "BackdropTemplate"), backdrop_proto)
+	backdrop:SetFrameLevel(parent:GetFrameLevel() - 1)
+	backdrop:SetPoint("TOPLEFT", -12, 12)
+	backdrop:SetPoint("BOTTOMRIGHT", 12, -12)
+	backdrop:SetBackdrop({
+		bgFile = "Interface\\ChatFrame\\ChatFrameBackground",
+		edgeFile = "Interface\\AddOns\\Nihui_chat\\textures\\MirroredFrameSingleUF",
+		tile = false,
+		edgeSize = 16,
+		insets = {left = 12, right = 12, top = 12, bottom = 12},
+	})
+
+	backdrop:SetBackdropColor(0, 0, 0, alpha or 0.8)
+	backdrop:SetBackdropBorderColor(0.5, 0.5, 0.5, 1) -- Nihui_uf gray border
+
+	-- Add glass overlay effect if requested
+	if addGlass then
+		local glass = parent:CreateTexture(nil, "ARTWORK", nil, 7)
+		glass:SetTexture("Interface\\AddOns\\Nihui_chat\\textures\\HPGlass.tga")
+		glass:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, 0)
+		glass:SetPoint("BOTTOMRIGHT", parent, "BOTTOMRIGHT", 0, 0)
+
+		-- Texture slicing (exact Nihui_uf style)
+		glass:SetTextureSliceMargins(16, 16, 16, 16)
+		glass:SetTextureSliceMode(Enum.UITextureSliceMode.Stretched)
+
+		glass:SetAlpha(0.2)
+		glass:SetBlendMode("ADD")
+
+		backdrop.glass = glass
+	end
 
 	t_insert(backdrops, backdrop)
 

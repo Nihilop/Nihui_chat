@@ -1080,7 +1080,7 @@ do
 
 	local slidingMessageFramePool = CreateUnsecuredObjectPool(
 		function(pool)
-			local frame = Mixin(CreateFrame("ScrollFrame", "LSGlassFrame" .. curID, UIParent, "LSGlassHyperlinkPropagator"), object_proto)
+			local frame = Mixin(CreateFrame("ScrollFrame", "NihuiChatFrame" .. curID, UIParent, "NihuiChatHyperlinkPropagator"), object_proto)
 			frame:EnableMouse(false)
 			frame:Hide()
 
@@ -1092,7 +1092,7 @@ do
 			frame.backfillMessages = {}
 			frame.pool = pool
 
-			local scrollChild = CreateFrame("Frame", nil, frame, "LSGlassHyperlinkPropagator")
+			local scrollChild = CreateFrame("Frame", nil, frame, "NihuiChatHyperlinkPropagator")
 			frame:SetFrameLevel(frame:GetFrameLevel() + 1)
 			frame:SetScrollChild(scrollChild)
 			frame.ScrollChild = scrollChild

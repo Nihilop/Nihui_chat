@@ -181,7 +181,7 @@ do
 	local objects = {}
 	local add, remove
 
-	local updater = CreateFrame("Frame", "LSGlassFader")
+	local updater = CreateFrame("Frame", "NihuiChatFader")
 
 	local function updater_OnUpdate(_, elapsed)
 		for object, data in next, objects do

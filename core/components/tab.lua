@@ -80,7 +80,7 @@ local TAB_TEXTURES = {
 
 function E:HandleChatTab(frame)
 	if not handledTabs[frame] then
-		frame.Backdrop = E:CreateTabBackdrop(frame, C.db.profile.dock.alpha)
+		frame.Backdrop = E:CreateGlassBackdrop(frame, C.db.profile.dock.alpha, true)
 
 		hooksecurefunc(frame, "SetPoint", chatTab_SetPoint)
 		frame:HookScript("OnDragStart", chatTab_OnDragStart)
@@ -95,7 +95,7 @@ function E:HandleChatTab(frame)
 		frame[texture]:SetTexture(0)
 	end
 
-	frame:SetHeight(36)
+	frame:SetHeight(26)
 
 	-- Set font size and vertical alignment
 	if C.db.profile.dock.font then
@@ -110,39 +110,39 @@ function E:HandleChatTab(frame)
 
 	frame.ActiveLeft:ClearAllPoints()
 	frame.ActiveLeft:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, -2)
-	frame.ActiveLeft:SetTexture("Interface\\AddOns\\ls_Glass\\assets\\border-highlight")
+	frame.ActiveLeft:SetTexture("Interface\\AddOns\\Nihui_chat\\assets\\border-highlight")
 	frame.ActiveLeft:SetTexCoord(0, 1, 0.5, 1)
 	frame.ActiveLeft:SetSize(8, 8)
 
 	frame.ActiveRight:ClearAllPoints()
 	frame.ActiveRight:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, -2)
-	frame.ActiveRight:SetTexture("Interface\\AddOns\\ls_Glass\\assets\\border-highlight")
+	frame.ActiveRight:SetTexture("Interface\\AddOns\\Nihui_chat\\assets\\border-highlight")
 	frame.ActiveRight:SetTexCoord(1, 0, 0.5, 1)
 	frame.ActiveRight:SetSize(8, 8)
 
 	frame.ActiveMiddle:ClearAllPoints()
 	frame.ActiveMiddle:SetPoint("TOPLEFT", frame.HighlightLeft, "TOPRIGHT", 0, 0)
 	frame.ActiveMiddle:SetPoint("TOPRIGHT", frame.HighlightRight, "TOPLEFT", 0, 0)
-	frame.ActiveMiddle:SetTexture("Interface\\AddOns\\ls_Glass\\assets\\border-highlight")
+	frame.ActiveMiddle:SetTexture("Interface\\AddOns\\Nihui_chat\\assets\\border-highlight")
 	frame.ActiveMiddle:SetTexCoord(0, 1, 0, 0.5)
 	frame.ActiveMiddle:SetSize(8, 8)
 
 	frame.HighlightLeft:ClearAllPoints()
 	frame.HighlightLeft:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, -2)
-	frame.HighlightLeft:SetTexture("Interface\\AddOns\\ls_Glass\\assets\\border-highlight")
+	frame.HighlightLeft:SetTexture("Interface\\AddOns\\Nihui_chat\\assets\\border-highlight")
 	frame.HighlightLeft:SetTexCoord(0, 1, 0.5, 1)
 	frame.HighlightLeft:SetSize(8, 8)
 
 	frame.HighlightRight:ClearAllPoints()
 	frame.HighlightRight:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, -2)
-	frame.HighlightRight:SetTexture("Interface\\AddOns\\ls_Glass\\assets\\border-highlight")
+	frame.HighlightRight:SetTexture("Interface\\AddOns\\Nihui_chat\\assets\\border-highlight")
 	frame.HighlightRight:SetTexCoord(1, 0, 0.5, 1)
 	frame.HighlightRight:SetSize(8, 8)
 
 	frame.HighlightMiddle:ClearAllPoints()
 	frame.HighlightMiddle:SetPoint("TOPLEFT", frame.HighlightLeft, "TOPRIGHT", 0, 0)
 	frame.HighlightMiddle:SetPoint("TOPRIGHT", frame.HighlightRight, "TOPLEFT", 0, 0)
-	frame.HighlightMiddle:SetTexture("Interface\\AddOns\\ls_Glass\\assets\\border-highlight")
+	frame.HighlightMiddle:SetTexture("Interface\\AddOns\\Nihui_chat\\assets\\border-highlight")
 	frame.HighlightMiddle:SetTexCoord(0, 1, 0, 0.5)
 	frame.HighlightMiddle:SetSize(8, 8)
 
@@ -179,7 +179,7 @@ local MINI_TAB_TEXTURES = {
 
 function E:HandleMinimizedTab(frame)
 	if not handledMiniTabs[frame] then
-		frame.Backdrop = E:CreateTabBackdrop(frame, C.db.profile.dock.alpha)
+		frame.Backdrop = E:CreateGlassBackdrop(frame, C.db.profile.dock.alpha, true)
 
 		E:HandleMaximizeButton(_G[frame:GetName() .. "MaximizeButton"])
 
@@ -192,7 +192,7 @@ function E:HandleMinimizedTab(frame)
 		frame[texture]:SetTexture(0)
 	end
 
-	frame:SetHeight(36)
+	frame:SetHeight(26)
 
 	-- Set font size and vertical alignment
 	if C.db.profile.dock.font then
@@ -207,20 +207,20 @@ function E:HandleMinimizedTab(frame)
 
 	frame.HighlightLeft:ClearAllPoints()
 	frame.HighlightLeft:SetPoint("TOPLEFT", frame, "TOPLEFT", 0, -2)
-	frame.HighlightLeft:SetTexture("Interface\\AddOns\\ls_Glass\\assets\\border-highlight")
+	frame.HighlightLeft:SetTexture("Interface\\AddOns\\Nihui_chat\\assets\\border-highlight")
 	frame.HighlightLeft:SetTexCoord(0, 1, 0.5, 1)
 	frame.HighlightLeft:SetSize(8, 8)
 
 	frame.HighlightRight:ClearAllPoints()
 	frame.HighlightRight:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, -2)
-	frame.HighlightRight:SetTexture("Interface\\AddOns\\ls_Glass\\assets\\border-highlight")
+	frame.HighlightRight:SetTexture("Interface\\AddOns\\Nihui_chat\\assets\\border-highlight")
 	frame.HighlightRight:SetTexCoord(1, 0, 0.5, 1)
 	frame.HighlightRight:SetSize(8, 8)
 
 	frame.HighlightMiddle:ClearAllPoints()
 	frame.HighlightMiddle:SetPoint("TOPLEFT", frame.HighlightLeft, "TOPRIGHT", 0, 0)
 	frame.HighlightMiddle:SetPoint("TOPRIGHT", frame.HighlightRight, "TOPLEFT", 0, 0)
-	frame.HighlightMiddle:SetTexture("Interface\\AddOns\\ls_Glass\\assets\\border-highlight")
+	frame.HighlightMiddle:SetTexture("Interface\\AddOns\\Nihui_chat\\assets\\border-highlight")
 	frame.HighlightMiddle:SetTexCoord(0, 1, 0, 0.5)
 	frame.HighlightMiddle:SetSize(8, 8)
 

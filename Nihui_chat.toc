@@ -1,9 +1,10 @@
 ## Interface: 110205
+## Title: |cff00ff00Nihui|r |cffffffffChat|r
+## Category: NihUI
 ## Author: Nihui (based on ls_Glass by lightspark)
 ## Version: 1.0.0
-## Title: Nihui |cff1a9fc0Chat|r
 ## Notes: Clean chat frames with ls_Glass sliding message system
-## IconTexture: Interface\AddOns\Nihui_chat\assets\logo-64
+## IconAtlas: GarrMission_MissionIcon-Logistics
 ## SavedVariables: NihuiChatDB
 ## LoadSavedVariablesFirst: 1
 ## OptionalDeps: ElvUI
