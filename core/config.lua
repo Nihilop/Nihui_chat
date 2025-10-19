@@ -275,7 +275,7 @@ function E:CreateConfig()
 
 	C.options = {
 		type = "group",
-		name = "|cffffffff" .. L["LS_GLASS"] .. "|r",
+		name = "|cffffffff" .. L["NIHUI_CHAT"] .. "|r",
 		args = {
 			general = {
 				order = 10,
@@ -642,7 +642,7 @@ function E:CreateConfig()
 					desc = {
 						order = 1,
 						type = "description",
-						name = L["LS_GLASS"] .. " |cffffd200v|r" .. E.VER.string,
+						name = L["NIHUI_CHAT"] .. " |cffffd200v|r" .. E.VER.string,
 						width = "full",
 						fontSize = "medium",
 					},

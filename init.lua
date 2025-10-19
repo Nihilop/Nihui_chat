@@ -196,10 +196,10 @@ E:RegisterEvent("ADDON_LOADED", function(arg1)
 			end
 		end)
 
-		Settings.RegisterAddOnCategory(Settings.RegisterCanvasLayoutCategory(panel, L["LS_GLASS"]))
+		Settings.RegisterAddOnCategory(Settings.RegisterCanvasLayoutCategory(panel, L["NIHUI_CHAT"]))
 
 		AddonCompartmentFrame:RegisterAddon({
-			text = L["LS_GLASS"],
+			text = L["NIHUI_CHAT"],
 			icon = "Interface\\AddOns\\Nihui_chat\\assets\\logo-32",
 			func = function()
 				if not InCombatLockdown() then

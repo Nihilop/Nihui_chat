@@ -9,7 +9,7 @@ local _G = getfenv(0)
 local L = {}
 ns.L = L
 
-L["LS_GLASS"] = "LS: |cffe0bc5bGlass|r"
+L["NIHUI_CHAT"] = "|cff00ff00Nihui|r Chat"
 L["CURSEFORGE"] = "CurseForge"
 L["DISCORD"] = "Discord"
 L["GITHUB"] = "GitHub"
